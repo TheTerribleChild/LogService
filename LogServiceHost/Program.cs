@@ -10,6 +10,8 @@ namespace LogServiceHost
     {
         static void Main(string[] args)
         {
+            LogServiceHost host = new LogServiceHost();
+            host.Run();
         }
     }
 }

@@ -10,7 +10,7 @@ namespace LogServiceClient
     class Options
     {
 
-        [Option('p', "port", Required = true, HelpText = "Specify the port of the log service.")]
+        [Option('p', "port", Required = true, HelpText = "Specify the port log service is running on.")]
         public int Port { get; set; }
 
         [Option('x', "exe", Required = true, HelpText = "Specify the application")]
@@ -32,6 +32,8 @@ namespace LogServiceClient
                 Console.WriteLine("Port " + options.Port);
                 Console.WriteLine("Exe " + options.Executable);
                 Console.WriteLine("Args " + options.Arguements);
+                LogServiceClient client = new LogServiceClient(options.Port, options.Executable, options.Arguements);
+                client.Run();
             }
             else
             {
