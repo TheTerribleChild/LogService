@@ -2,36 +2,48 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LogServiceLibrary
 {
     public class LogServer
     {
-        private Utility.WebUtility.BroadcastListener broadcastListener;
+        private Utility.WebUtility.UdpConnector udpListener;
 
         private uint ServerSessionKey { get; set; }
 
-        public LogServer()
+        private uint ConnectionKeyHash { get; set; }
+
+        public LogServer(string connectionPassword = null)
         {
-            this.broadcastListener = new Utility.WebUtility.BroadcastListener();
-            this.broadcastListener.BroadcastReceived += this.BroadcastReceived;
+            this.udpListener = new Utility.WebUtility.UdpConnector();
+            this.udpListener.MessageReceived += this.MessageReceived;
             this.ServerSessionKey = (uint)string.Format("{0}{1}", DateTime.Now.ToString(), new Random().NextDouble().ToString()).GetHashCode();
+
+            if(connectionPassword == null || connectionPassword.Length == 0)
+                connectionPassword = new Random().Next().ToString("X10");
+
+            Console.WriteLine("Connection password: " + connectionPassword);
+
+            this.ConnectionKeyHash = (uint) connectionPassword.GetHashCode();
         }
 
         public void Run()
         {
-            broadcastListener.Start();
+            udpListener.Listen = true;
+            Console.WriteLine(udpListener.ReceiverEP);
+            Console.WriteLine(Utility.WebUtility.GetLocalIPAddress());
         }
 
-        private void BroadcastReceived(object sender, Utility.WebUtility.BroadcastReceivedEventArgs args)
+        private void MessageReceived(object sender, Utility.WebUtility.MessageReceivedEventArgs args)
         {
             Console.WriteLine(args.message);
             Message incomingMessage = Utility.SerializeUtility.DeserializeJsonString<Message>(args.message);
             if (incomingMessage.Type == MessageType.RequestConnection)
             {
                 RequestConnectionMessage message = Utility.SerializeUtility.DeserializeJsonString<RequestConnectionMessage>(args.message);
-                Console.WriteLine(message.Type);
+                Console.WriteLine(message.Type + " " + args.endpoint.Address + " " + args.endpoint.Port);
             }
         }
     }

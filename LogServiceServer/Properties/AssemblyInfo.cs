@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("LogServiceHost")]
+[assembly: AssemblyTitle("LogServiceServer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("LogServiceHost")]
+[assembly: AssemblyProduct("LogServiceServer")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("29b50efd-9280-4846-85e4-e31ee3824f44")]
+[assembly: Guid("0b1eb52a-7859-4e00-97d0-8473b7db76a8")]
 
 // Version information for an assembly consists of the following four values:
 //

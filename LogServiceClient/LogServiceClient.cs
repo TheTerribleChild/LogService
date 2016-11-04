@@ -28,7 +28,7 @@ namespace LogServiceClient
 
         private void EstablishConnectionToLogServer()
         {
-            RequestConnectionMessage request = new RequestConnectionMessage(ExectuableName, ExecutableArgs, ClientSessionKey);
+            RequestConnectionMessage request = new RequestConnectionMessage(ExectuableName, ClientSessionKey);
             Utility.WebUtility.BroadcastMessage(LogServerBroadcastPort, Utility.SerializeUtility.SerializeToJsonString(request));
             Console.WriteLine(Utility.SerializeUtility.SerializeToJsonString(request));
             //Message m = (Message)Utility.SerializeUtility.DeserializeJsonString(Utility.SerializeUtility.SerializeToJsonString(request));
