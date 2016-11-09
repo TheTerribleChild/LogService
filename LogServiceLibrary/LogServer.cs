@@ -32,7 +32,6 @@ namespace LogServiceLibrary
         public void Run()
         {
             udpListener.Listen = true;
-
         }
 
         private void MessageReceived(object sender, Utility.WebUtility.MessageReceivedEventArgs args)
