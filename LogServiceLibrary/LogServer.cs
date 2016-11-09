@@ -32,18 +32,17 @@ namespace LogServiceLibrary
         public void Run()
         {
             udpListener.Listen = true;
-            Console.WriteLine(udpListener.ReceiverEP);
-            Console.WriteLine(Utility.WebUtility.GetLocalIPAddress());
+
         }
 
         private void MessageReceived(object sender, Utility.WebUtility.MessageReceivedEventArgs args)
         {
-            Console.WriteLine(args.message);
-            Message incomingMessage = Utility.SerializeUtility.DeserializeJsonString<Message>(args.message);
+            Console.WriteLine(args.Message);
+            Message incomingMessage = Utility.SerializeUtility.DeserializeJsonString<Message>(args.Message);
             if (incomingMessage.Type == MessageType.RequestConnection)
             {
-                RequestConnectionMessage message = Utility.SerializeUtility.DeserializeJsonString<RequestConnectionMessage>(args.message);
-                Console.WriteLine(message.Type + " " + args.endpoint.Address + " " + args.endpoint.Port);
+                RequestConnectionMessage message = Utility.SerializeUtility.DeserializeJsonString<RequestConnectionMessage>(args.Message);
+                Console.WriteLine(message.Type + " " + args.RemoteEndpoint.Address);
             }
         }
     }
